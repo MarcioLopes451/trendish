@@ -15,7 +15,7 @@ export default function SignUp() {
       <div className="px-6 mt-6 flex justify-center items-center flex-col w-full gap-4">
         <img src={Logo} className="w-[150px]" />
         <div className="font-sora font-light">
-          <span className="text-lightBlue font-semibold">
+          <span className="text-LightBlue font-semibold">
             Welcome to Trendish!
           </span>
           <p>Where Every Moment Goes Viral!</p>
@@ -89,7 +89,7 @@ export default function SignUp() {
           <br />
         </div>
         <div className="flex justify-center items-center">
-          <button className="bg-lightBlue w-[342px] h-[42px] rounded-[8px] text-[14px] text-white">
+          <button className="bg-LightBlue w-[342px] h-[42px] rounded-[8px] text-[14px] text-white">
             Sign up
           </button>
         </div>

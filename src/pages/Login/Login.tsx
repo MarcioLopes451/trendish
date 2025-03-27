@@ -12,7 +12,7 @@ export default function Login() {
       <div className="px-6 mt-6 flex justify-center items-center flex-col w-full gap-4">
         <img src={Logo} className="w-[150px]" />
         <div className="font-sora font-light">
-          <span className="text-lightBlue font-semibold">Stay Trendish!</span>
+          <span className="text-LightBlue font-semibold">Stay Trendish!</span>
           <p>Where Every Moment Goes Viral!</p>
           <p>Sign in to explore the latest trends.</p>
         </div>
@@ -41,7 +41,7 @@ export default function Login() {
             <p>Forgot Password?</p>
           </div>
           <div className="flex justify-center items-center mt-5">
-            <button className="bg-lightBlue w-[342px] h-[42px] rounded-[8px] text-[14px] text-white">
+            <button className="bg-LightBlue w-[342px] h-[42px] rounded-[8px] text-[14px] text-white">
               Sign in
             </button>
           </div>

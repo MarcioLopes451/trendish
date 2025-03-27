@@ -17,7 +17,7 @@ function LinkTag({ img, title, linkTo, danger }: LinkTagProps) {
       <img
         src={img}
         alt=""
-        className={`p-2 ${danger ? "bg-lightRed" : "bg-lightBlue"} rounded-sm`}
+        className={`p-2 ${danger ? "bg-lightRed" : "bg-LightBlue"} rounded-sm`}
       />
       <p className="font-normal text-sm leading-4">{title}</p>
     </Link>

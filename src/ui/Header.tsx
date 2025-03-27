@@ -22,7 +22,7 @@ function Header() {
   }
 
   return (
-    <header className="flex relative bg-lightBlue items-center justify-between px-6 py-8">
+    <header className="flex relative bg-LightBlue items-center justify-between px-6 py-8">
       <button className="h-8 w-8" aria-label="Go to homepage">
         <img src={logoImg} alt="Trendish Logo" />
       </button>
@@ -61,7 +61,7 @@ function Header() {
             <LinkTag
               danger={false}
               img={profileIcon}
-              linkTo="*"
+              linkTo="/profile"
               title="Profile"
             />
             <LinkTag
