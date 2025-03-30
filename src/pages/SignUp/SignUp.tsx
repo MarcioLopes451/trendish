@@ -1,6 +1,9 @@
 import { useState } from "react";
 import Logo from "../../assets/TrendishLogo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { auth, db } from "../../../config/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState<string>("");
@@ -9,6 +12,70 @@ export default function SignUp() {
   const [DOB, SetDOB] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+  const [error, setError] = useState<boolean>(false);
+
+  const navigate = useNavigate();
+  const handleSignUp = async () => {
+    setError(false);
+    setMessage("");
+
+    if (!firstName.trim()) {
+      setFirstName("First name is required");
+      setError(true);
+      return;
+    }
+    if (!lastName.trim()) {
+      setLastName("Last name is required");
+      setError(true);
+      return;
+    }
+    if (!username.trim()) {
+      setUsername("Username is required");
+      setError(true);
+      return;
+    }
+    if (!DOB.trim()) {
+      SetDOB("Date of Birth is required");
+      setError(true);
+      return;
+    }
+    if (!email.trim()) {
+      setEmail("Email is required");
+      setError(true);
+      return;
+    }
+    if (!password.trim()) {
+      setPassword("Password is required");
+      setError(true);
+      return;
+    }
+
+    try {
+      const userAuth = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await setDoc(doc(db, "users", userAuth.user.uid), {
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        username: username,
+        dob: DOB,
+        createdAt: new Date().toISOString(),
+        uid: userAuth.user.uid,
+      });
+      setMessage("Sign up Successful! redirecting you to login page....");
+      setError(false);
+      setTimeout(() => {
+        navigate("/login/");
+      }, 3000);
+    } catch (error) {
+      console.log(error);
+      setMessage("Error with signing up." + error);
+      setError(true);
+    }
+  };
 
   return (
     <section className="w-full text-[15px]">
@@ -89,7 +156,13 @@ export default function SignUp() {
           <br />
         </div>
         <div className="flex justify-center items-center">
-          <button className="bg-LightBlue w-[342px] h-[42px] rounded-[8px] text-[14px] text-white">
+          <div style={error === true ? { color: "red" } : { color: "black" }}>
+            {message}
+          </div>
+          <button
+            className="bg-lightBlue w-[342px] h-[42px] rounded-[8px] text-[14px] text-white"
+            onClick={handleSignUp}
+          >
             Sign up
           </button>
         </div>
@@ -98,10 +171,7 @@ export default function SignUp() {
           <div className="flex justify-center items-center">
             <p>
               You have an account?{" "}
-              <Link
-                to="/trendish/login/"
-                className="text-blue-600 font-semibold"
-              >
+              <Link to="/login/" className="text-blue-600 font-semibold">
                 Sign In
               </Link>
             </p>
