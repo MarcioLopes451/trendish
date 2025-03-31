@@ -7,8 +7,6 @@ import userEvent from "@testing-library/user-event";
 import SignUp from "../../pages/SignUp/SignUp";
 import Login from "../../pages/Login/Login";
 
-const mockfn = vi.fn();
-
 describe("Signup component", () => {
   it("create account for user", async () => {
     render(
