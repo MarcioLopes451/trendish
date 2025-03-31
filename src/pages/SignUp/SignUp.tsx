@@ -82,7 +82,7 @@ export default function SignUp() {
       <div className="px-6 mt-6 flex justify-center items-center flex-col w-full gap-4">
         <img src={Logo} className="w-[150px]" />
         <div className="font-sora font-light">
-          <span className="text-lightBlue font-semibold">
+          <span className="text-LightBlue font-semibold">
             Welcome to Trendish!
           </span>
           <p>Where Every Moment Goes Viral!</p>
