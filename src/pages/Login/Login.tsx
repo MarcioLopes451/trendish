@@ -83,9 +83,9 @@ export default function Login() {
             <p>Forgot Password?</p>
           </div>
           <div className="flex justify-center items-center mt-2">
-            <p>
-              <div>{message}</div>
-            </p>
+            <div>
+              <p>{message}</p>
+            </div>
           </div>
           <div className="flex justify-center items-center mt-5">
             <button
