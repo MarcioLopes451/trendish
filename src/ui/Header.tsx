@@ -11,12 +11,15 @@ import profileIcon from "../assets/user-octagon.png";
 import friendsIcon from "../assets/people.png";
 import settingIcon from "../assets/setting-2.png";
 import logOutIcon from "../assets/status-up.png";
-import { doc } from "firebase/firestore";
 
 // MARGIN IN THE X IS 16PX AND MT IS 32PX
 
-function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+type HeaderProps = {
+  isMenuOpen: boolean;
+  setIsMenuOpen: (isOpen: boolean) => void;
+};
+
+function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
   const menuRef = useRef<HTMLDivElement | null>(null);
 
   function handleSearch() {
@@ -48,7 +51,7 @@ function Header() {
   }, []);
 
   return (
-    <header className="flex relative bg-LightBlue items-center justify-between px-6 py-8">
+    <header className="bg-LightBlue relative flex items-center justify-between px-6 py-8">
       <button className="h-8 w-8" aria-label="Go to homepage">
         <img src={logoImg} alt="Trendish Logo" />
       </button>
@@ -72,18 +75,18 @@ function Header() {
           <div className="fixed inset-0 bg-black/50"></div>
           <div
             ref={menuRef}
-            className="fixed text-black inset-y-0 font-sora right-0 w-[52.8%] px-6 bg-white overflow-scroll"
+            className="font-sora fixed inset-y-0 right-0 z-10 w-[52.8%] overflow-scroll bg-white px-6 text-black"
           >
             <img
-              className="mt-10 mx-auto"
+              className="mx-auto mt-10"
               src={profileImg}
               alt="Steve Rogers"
             />
-            <h2 className="mt-3.5  leading-6 text-center font-semibold text-xl">
+            <h2 className="mt-3.5 text-center text-xl leading-6 font-semibold">
               Steve Rogers
             </h2>
 
-            <h2 className="mt-7  font-normal text-LightRed leading-5  text-base ">
+            <h2 className="text-LightRed mt-7 text-base leading-5 font-normal">
               Explore panel
             </h2>
 
@@ -100,7 +103,7 @@ function Header() {
               title="Find friends"
             />
 
-            <h2 className="mt-9 text-LightRed font-normal leading-5">
+            <h2 className="text-LightRed mt-9 leading-5 font-normal">
               Settings
             </h2>
 

@@ -9,6 +9,7 @@ import Main from "../../ui/Main";
 function Homepage() {
   const [user, setUser] = useState<string | null>(null);
   const [logout, setLogout] = useState<boolean>(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,8 +37,8 @@ function Homepage() {
 
   return (
     <>
-      <Header />
-      <Main />
+      <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <Main isMenuOpen={isMenuOpen} />
 
       <div>
         {/* testing if auth works temp code ! */}
