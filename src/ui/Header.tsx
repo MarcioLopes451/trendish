@@ -60,13 +60,11 @@ function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
           onclick={handleSearch}
           img={searchIcon}
           ariaLabel="Search people"
-          alt="Search Icon"
         />
         <Button
           onclick={() => setIsMenuOpen(true)}
           img={BurgerMenuIcon}
           ariaLabel="Click to Open Menu"
-          alt=""
         />
       </div>
 

@@ -1,8 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --font-sora: "Sora", sans-serif;
+  /* Font Families */
+  --font-sora: "Sora", "sans-serif";
+  --font-Rubik: "Rubik", "sans-serif";
+
+  /* Colors */
   --color-LightBlue: #a9def9;
   --color-WhiteBlue: #f3f7fb;
   --color-CoolGrey: #8897ad;
@@ -15,4 +20,5 @@
   --color-SteelBlueGray: #4b5669;
   --color-White: #fff;
   --color-LightYellow: #ffee93;
+  --color-BlackGrey: #cfcfcf;
 }
