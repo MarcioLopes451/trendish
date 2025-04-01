@@ -44,7 +44,7 @@ function Header() {
       {isMenuOpen && (
         <>
           <div className="fixed inset-0 bg-black/50"></div>
-          <div className="fixed text-black inset-y-0 font-sora right-0 w-[52.8%] px-6 bg-white">
+          <div className="fixed text-black inset-y-0 font-sora right-0 w-[52.8%] px-6 bg-white overflow-scroll">
             <img
               className="mt-10 mx-auto"
               src={profileImg}
