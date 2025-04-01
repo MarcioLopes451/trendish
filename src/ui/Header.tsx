@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Button from "./Button";
 import LinkTag from "./LinkTag";
@@ -11,15 +11,41 @@ import profileIcon from "../assets/user-octagon.png";
 import friendsIcon from "../assets/people.png";
 import settingIcon from "../assets/setting-2.png";
 import logOutIcon from "../assets/status-up.png";
+import { doc } from "firebase/firestore";
 
 // MARGIN IN THE X IS 16PX AND MT IS 32PX
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
 
   function handleSearch() {
     console.log("Dummy for now to hide typescript error");
   }
+
+  // Close when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Close on "Escape" key press
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <header className="flex relative bg-LightBlue items-center justify-between px-6 py-8">
@@ -44,7 +70,10 @@ function Header() {
       {isMenuOpen && (
         <>
           <div className="fixed inset-0 bg-black/50"></div>
-          <div className="fixed text-black inset-y-0 font-sora right-0 w-[52.8%] px-6 bg-white overflow-scroll">
+          <div
+            ref={menuRef}
+            className="fixed text-black inset-y-0 font-sora right-0 w-[52.8%] px-6 bg-white overflow-scroll"
+          >
             <img
               className="mt-10 mx-auto"
               src={profileImg}
