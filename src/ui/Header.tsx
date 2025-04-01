@@ -81,7 +81,13 @@ function Header() {
               linkTo="*"
               title="Settings"
             />
-            <LinkTag danger img={logOutIcon} linkTo="*" title="Settings" />
+
+            <LinkTag
+              danger={true}
+              img={logOutIcon}
+              linkTo="*"
+              title="Log out"
+            />
           </div>
         </>
       )}
