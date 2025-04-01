@@ -5,7 +5,10 @@ type PostActionButtonProps = {
 
 function PostActionButton({ img, description }: PostActionButtonProps) {
   return (
-    <button className="flex items-center gap-1.5" aria-label={description}>
+    <button
+      className="flex cursor-pointer items-center gap-1.5"
+      aria-label={description}
+    >
       <img
         src={img}
         alt=""
