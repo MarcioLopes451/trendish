@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../../../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
+import GroupImg from '../../assets/Group 1.png';
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState<string>("");
@@ -79,9 +80,11 @@ export default function SignUp() {
 
   return (
     <section className="w-full text-[15px]">
-      <div className="px-6 mt-6 flex justify-center items-center flex-col w-full gap-4">
+      <div className="px-6 mt-6 flex justify-between items-center gap-[50px] lg:px-[80px] lg:mt-10 xl:px-[200px] xl:mt-20">
+        <img src={GroupImg} className="hidden md:w-[300px] md:block xl:w-[450px]" />
+      <div className="flex justify-center items-center flex-col w-full gap-4">
         <img src={Logo} className="w-[150px]" />
-        <div className="font-sora font-light">
+        <div className="font-sora font-light lg:text-center lg:text-[18px]">
           <span className="text-LightBlue font-semibold">
             Welcome to Trendish!
           </span>
@@ -91,7 +94,7 @@ export default function SignUp() {
 
         {/*Form Section */}
 
-        <div className="font-light text-[14px] grid grid-cols-2 gap-5 w-full">
+        <div className="font-light text-[14px] flex justify-around items-center flex-wrap gap-4 lg:w-[500px] lg:text-[16px]">
           <div>
             <p>First Name</p>
             <input
@@ -99,7 +102,8 @@ export default function SignUp() {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               placeholder="John"
-              className="bg-whiteBlue w-[140px] h-[42px] rounded-[8px] text-[15px] px-[15px] mt-[8px] border border-[#D4D7E3] placeholder:text-[14px]"
+              className="bg-whiteBlue w-[140px] h-[42px] rounded-[8px] text-[15px] px-[15px] mt-[8px] border border-[#D4D7E3] placeholder:text-[14px]
+              lg:w-[180px] lg:placeholder:text-[16px]"
             />
           </div>
           <div>
@@ -109,7 +113,8 @@ export default function SignUp() {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               placeholder="Doe"
-              className="bg-whiteBlue w-[140px] h-[42px] rounded-[8px] text-[15px] px-[15px] mt-[8px] border border-[#D4D7E3] placeholder:text-[14px]"
+              className="bg-whiteBlue w-[140px] h-[42px] rounded-[8px] text-[15px] px-[15px] mt-[8px] border border-[#D4D7E3] placeholder:text-[14px]
+              lg:w-[180px] lg:placeholder:text-[16px]"
             />
           </div>
           <div>
@@ -119,7 +124,8 @@ export default function SignUp() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Unique name"
-              className="bg-whiteBlue w-[140px] h-[42px] rounded-[8px] text-[15px] px-[15px] mt-[8px] border border-[#D4D7E3] placeholder:text-[14px]"
+              className="bg-whiteBlue w-[140px] h-[42px] rounded-[8px] text-[15px] px-[15px] mt-[8px] border border-[#D4D7E3] placeholder:text-[14px]
+              lg:w-[180px] lg:placeholder:text-[16px]"
             />
           </div>
           <div>
@@ -128,8 +134,9 @@ export default function SignUp() {
               type="text"
               value={DOB}
               onChange={(e) => SetDOB(e.target.value)}
-              placeholder="DOB"
-              className="bg-whiteBlue w-[140px] h-[42px] rounded-[8px] text-[15px] px-[15px] mt-[8px] border border-[#D4D7E3] placeholder:text-[14px]"
+              placeholder="01/01/2000"
+              className="bg-whiteBlue w-[140px] h-[42px] rounded-[8px] text-[15px] px-[15px] mt-[8px] border border-[#D4D7E3] placeholder:text-[14px]
+               lg:w-[180px] lg:placeholder:text-[16px]"
             />
           </div>
           <div>
@@ -139,7 +146,8 @@ export default function SignUp() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="exmaple@gmail.com"
-              className="bg-whiteBlue w-[140px] h-[42px] rounded-[8px] text-[15px] px-[15px] mt-[8px] border border-[#D4D7E3] placeholder:text-[14px]"
+              className="bg-whiteBlue w-[140px] h-[42px] rounded-[8px] text-[15px] px-[15px] mt-[8px] border border-[#D4D7E3] placeholder:text-[14px]
+              lg:w-[180px] lg:placeholder:text-[16px]"
             />
           </div>
           <div>
@@ -149,25 +157,24 @@ export default function SignUp() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="At least 8 characters"
-              className="bg-whiteBlue w-[140px] h-[42px] rounded-[8px] text-[15px] px-[15px] mt-[8px] border border-[#D4D7E3] placeholder:text-[14px]"
+              className="bg-whiteBlue w-[140px] h-[42px] rounded-[8px] text-[15px] px-[15px] mt-[8px] border border-[#D4D7E3] placeholder:text-[14px]
+              lg:w-[180px] lg:placeholder:text-[16px]"
             />
           </div>
-
-          <br />
         </div>
         <div className="flex justify-center items-center">
           <div style={error === true ? { color: "red" } : { color: "black" }}>
             {message}
           </div>
           <button
-            className="bg-LightBlue w-[342px] h-[42px] rounded-[8px] text-[14px]"
+            className="bg-LightBlue w-[342px] h-[42px] rounded-[8px] text-[14px] lg:text-[16px] lg:w-[440px]"
             onClick={handleSignUp}
           >
             Sign up
           </button>
         </div>
         {/* sign in Link */}
-        <div className="mt-5 text-[14px] font-light">
+        <div className="mt-5 text-[14px] font-light lg:text-[16px]">
           <div className="flex justify-center items-center">
             <p>
               You have an account?{" "}
@@ -177,6 +184,7 @@ export default function SignUp() {
             </p>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );
