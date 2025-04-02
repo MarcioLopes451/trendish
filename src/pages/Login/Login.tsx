@@ -5,6 +5,7 @@ import FacebookLogo from "../../assets/5296499_fb_facebook_facebook logo_icon.pn
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../../config/firebase";
+import GroupImg from '../../assets/Group 1.png';
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
@@ -51,9 +52,11 @@ export default function Login() {
 
   return (
     <section className="w-full text-[15px]">
+      <div className="px-6 mt-6 flex justify-between items-center gap-[40px] lg:px-[80px] lg:mt-10 xl:px-[200px] xl:mt-20">
+      <img src={GroupImg} className="hidden md:w-[300px] md:block xl:w-[450px]" />
       <div className="px-6 mt-6 flex justify-center items-center flex-col w-full gap-4">
         <img src={Logo} className="w-[150px]" />
-        <div className="font-sora font-light">
+        <div className="font-sora font-light lg:text-[18px] lg:text-center">
           <span className="text-LightBlue font-semibold">Stay Trendish!</span>
           <p>Where Every Moment Goes Viral!</p>
           <p>Sign in to explore the latest trends.</p>
@@ -61,14 +64,15 @@ export default function Login() {
 
         {/*Form Section */}
 
-        <div className="font-light text-[14px]">
+        <div className="font-light text-[14px] lg:w-[500px] lg:text-[16px] ">
           <p>Email</p>
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Example@email.com"
-            className="bg-whiteBlue w-[342px] h-[42px] rounded-[8px] text-[15px] px-[15px] mt-[8px] border border-[#D4D7E3] placeholder:text-[14px]"
+            className="bg-whiteBlue w-[342px] h-[42px] rounded-[8px] text-[15px] px-[15px] mt-[8px] border border-[#D4D7E3] placeholder:text-[14px]
+            lg:w-full lg:placeholder:text-[16px]"
           />
           <p className="mt-[8px]">Password</p>
           <input
@@ -76,7 +80,8 @@ export default function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="At least 8 characters"
-            className="bg-whiteBlue w-[342px] h-[42px] rounded-[8px] text-[15px] px-[15px] mt-[8px] border border-[#D4D7E3] placeholder:text-[14px]"
+            className="bg-whiteBlue w-[342px] h-[42px] rounded-[8px] text-[15px] px-[15px] mt-[8px] border border-[#D4D7E3] placeholder:text-[14px]
+            lg:w-full lg:placeholder:text-[16px]"
           />
           <br />
           <div className="flex justify-end items-end mt-5">
@@ -89,7 +94,7 @@ export default function Login() {
           </div>
           <div className="flex justify-center items-center mt-5">
             <button
-              className="bg-LightBlue w-[342px] h-[42px] rounded-[8px] text-[14px] text-white"
+              className="bg-LightBlue w-[342px] h-[42px] rounded-[8px] text-[14px] text-white lg:w-full lg:text-[16px]"
               onClick={handleSignIn}
               style={error === true ? { color: "red" } : { color: "black" }}
             >
@@ -121,7 +126,7 @@ export default function Login() {
         </div>
 
         {/* Sign Up Link */}
-        <div className="mt-5 text-[14px] font-light">
+        <div className="mt-5 text-[14px] font-light lg:text-[16px]">
           <div className="flex justify-center items-center">
             <p>
               Don't you have an account?{" "}
@@ -131,6 +136,7 @@ export default function Login() {
             </p>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );
