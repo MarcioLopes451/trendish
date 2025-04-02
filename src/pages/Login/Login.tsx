@@ -89,7 +89,7 @@ export default function Login() {
           </div>
           <div className="flex justify-center items-center mt-5">
             <button
-              className="bg-lightBlue w-[342px] h-[42px] rounded-[8px] text-[14px] text-white"
+              className="bg-LightBlue w-[342px] h-[42px] rounded-[8px] text-[14px] text-white"
               onClick={handleSignIn}
               style={error === true ? { color: "red" } : { color: "black" }}
             >
