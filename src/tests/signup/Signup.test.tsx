@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it} from "vitest";
 import "@testing-library/jest-dom/vitest";
 import "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
