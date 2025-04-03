@@ -1,4 +1,5 @@
 import CreatePost from "../pages/Homepage/Homepage Components/CreatePost";
+import PeopleYouMayKnow from "../pages/Homepage/Homepage Components/PeopleYouMayKnow";
 import ShowFeeds from "../pages/Homepage/Homepage Components/ShowFeeds";
 
 type MainProps = {
@@ -10,6 +11,7 @@ function Main({ isMenuOpen }: MainProps) {
     <main className="bg-IceBlue pt-5">
       <CreatePost isMenuOpen={isMenuOpen} />
       <ShowFeeds />
+      <PeopleYouMayKnow />
     </main>
   );
 }

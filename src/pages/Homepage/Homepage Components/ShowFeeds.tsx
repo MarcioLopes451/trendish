@@ -6,7 +6,7 @@ import natureImg from "../../../assets/natureImage.png";
 
 function ShowFeeds() {
   return (
-    <section className="mt-6 space-y-6 pb-6">
+    <section className="mt-6 space-y-6">
       <ShowFeedsItem
         profileImage={profilePhoto}
         name="Tony Stark"
