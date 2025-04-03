@@ -5,6 +5,7 @@ import SignUp from "./pages/SignUp/SignUp";
 import Homepage from "./pages/Homepage/Homepage";
 import NoPageFound from "./pages/Error/NoPageFound";
 import { UserProfile } from "./pages/UserProfile/UserProfile";
+import Settings from "./pages/Settings/Settings";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/profile" element={<UserProfile />} />
       <Route path="*" element={<NoPageFound />} />
+      <Route path="/settings" element={<Settings />} />
     </Routes>
   );
 }
