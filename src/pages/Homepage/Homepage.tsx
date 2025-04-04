@@ -2,9 +2,10 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, db } from "../../../config/firebase";
 import Header from "../../ui/Header";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import Main from "../../ui/Main";
+
 
 function Homepage() {
   const [user, setUser] = useState<string | null>(null);
@@ -43,7 +44,7 @@ function Homepage() {
       <div>
         {/* testing if auth works temp code ! */}
         <p>{user ? user : "no user"}</p>
-        <button onClick={handleLogout}>log out</button>
+        {user ? <button onClick={handleLogout}>log out</button> : <Link  to='/login'>log in</Link>}
         <p>
           {logout == true &&
             "Successfully logged out! redirecting you to login page..."}
