@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import ProfilePic from '../../assets/profilePhoto.png';
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { onAuthStateChanged, updateEmail, updatePassword } from "firebase/auth";
+import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, updatePassword, verifyBeforeUpdateEmail } from "firebase/auth";
 import { auth, db } from '../../../config/firebase';
 
 type UserData  = {
@@ -65,11 +65,14 @@ export default function Settings() {
         }
       };
 
-      const updateUserEmail = async () => {
+      const updateUserEmail = async (pass:string) => {
         if(!email.trim() || !auth.currentUser) return ;
         try {
-            await updateEmail(auth.currentUser, email.trim());
-            setEmail("")
+            const credential = EmailAuthProvider.credential(auth.currentUser.email!,pass)
+            await reauthenticateWithCredential(auth.currentUser, credential);
+          
+            await verifyBeforeUpdateEmail(auth.currentUser, email.trim());
+            alert("Verification email sent! Please check your new email address.");
         }
         catch(error) {
             console.error(error)
@@ -178,7 +181,7 @@ export default function Settings() {
                     </div>
                     <div className="flex justify-center items-center mt-10 lg:justify-start lg:px-[50px]">
                         <button className="bg-[#D9E6FF] w-[121px] h-[30px] rounded-[8px] text-[14px] font-light text-Azure md:w-[246px] md:h-[46px] lg:text-[16px] lg:w-[240px]" 
-                        onClick={() =>  {updateUserData(); updateUserEmail(); updateUserPassword()}}>
+                        onClick={() =>  {updateUserData(); updateUserEmail(password); updateUserPassword()}}>
                             Save Changes
                         </button>
                         </div>
