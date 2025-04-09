@@ -1,5 +1,7 @@
-import LikeShareComment from "../../../ui/LikeShareComment";
+
 import shareIcon from "../../../assets/2849794_plane_paper airplane_send_airplane_multimedia_icon.png";
+
+
 
 type ShowFeedsItemProps = {
   profileImage: string;
@@ -10,6 +12,9 @@ type ShowFeedsItemProps = {
   postContent: string;
   commentUserprofileImage: string;
   postImage?: string;
+  likes?:number,
+  handleLike: (postId:string) => void,
+  postId:string
 };
 
 function ShowFeedsItem({
@@ -21,7 +26,11 @@ function ShowFeedsItem({
   postContent,
   commentUserprofileImage,
   postImage,
+  likes,
+  handleLike,
+  postId
 }: ShowFeedsItemProps) {
+
   return (
     <article className="bg-White mx-1.5 px-2 pt-2 pb-6">
       <div className="flex gap-4">
@@ -43,7 +52,13 @@ function ShowFeedsItem({
         {postImage && (
           <img src={postImage} alt="" className="mt-3.5 rounded-xl" />
         )}
-        <LikeShareComment />
+        {/*<LikeShareComment /> */}
+        {/* temp code just testing the like count */}
+        <div className="mt-3 flex gap-5 border-b-[1px] pb-3">
+          <button aria-label="Give a like to this post" onClick={() => handleLike(postId)}>like {likes}</button>
+          <button aria-label="Comment on this post">comment</button>
+          <button aria-label="Share this post">share</button>
+        </div>
 
         <div className="relative">
           <label htmlFor="userComment" className="sr-only">
