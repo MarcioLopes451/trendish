@@ -78,7 +78,7 @@ function ShowFeeds() {
           name="Paul Rudd"
           userId="antman_wasp"
           bioInfo="Smallest creature in this beautiful universe | Flying in colo..."
-          postContent={post.postHeader}
+          postContent={post.postContent}
           postHeader={post.postHeader}
           commentUserprofileImage={commentUserProfileImage}
           postImage={natureImg}
