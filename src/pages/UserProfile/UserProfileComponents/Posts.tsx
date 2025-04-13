@@ -1,9 +1,9 @@
 import { useState } from "react";
 import userImg from "../../../assets/UserProfile.png";
-import heartIcon from "@/assets/heartIcon.svg";
 import commentIcon from "@/assets/commentIcon.svg";
 import sendIcon from "@/assets/Send.svg";
 import profilePhoto from "@/assets/profilePhoto.png";
+import { HeartIcon } from "../../../icons/HeartIcon";
 
 type Post = {
   id: string;
@@ -16,7 +16,6 @@ type Post = {
 };
 
 export function Posts() {
-  // Placeholder data until real data comes
   const placeholderPosts: Post[] = [
     {
       id: "1",
@@ -25,35 +24,47 @@ export function Posts() {
       username: "@tony_stark_3000",
       bio: "Cognitive Person | Enthusiastic scientist | Worked on 300...",
       text: "Looking for an amazing scientist who knows how to build a suit that can fly high in the sky without any problem.",
-      title: "Immediate HIRING", // Removed ** for clean text
+      title: "Immediate HIRING",
     },
+    {
+      id: "2",
+      profileImage: userImg,
+      name: "Pepper Potts",
+      username: "@pepper_potts",
+      bio: "CEO | Organizer",
+      text: "Hiring for Stark Industries!",
+      title: "Join Us",
+    }
   ];
 
-  // State for posts (use placeholder for now, replace with API data later)
   const [posts] = useState<Post[]>(placeholderPosts);
-
-  // State for comments (per post)
   const [comments, setComments] = useState<{ [key: string]: string }>({});
+  const [likedPosts, setLikedPosts] = useState<{ [key: string]: boolean }>({});
 
-  // Handle comment input change
   const handleCommentChange = (
     postId: string,
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setComments((prev) => ({ ...prev, [postId]: e.target.value }));
   };
 
-  // Handle comment submission
   const handleCommentSubmit = (postId: string) => {
     if (comments[postId]?.trim()) {
-      // Later: Send comment to API with postId
       setComments((prev) => ({ ...prev, [postId]: "" }));
     }
   };
 
+  const handleLoveClick = (postId: string) => {
+    setLikedPosts((prev) => ({
+      ...prev,
+      [postId]: !prev[postId],
+    }));
+    console.log("likedPosts:", likedPosts);
+  };
+
   return (
-    <section className="w-full lg:w-[846px] flex flex-col gap-[20px] bg-white shadow-[0px_2px_50px_0px_#A9DEF93D] rounded-[10px] pt-[10px] pb-[26px] lg:py-[37px] px-[7px] lg:px-[27px]">
-      <h2 className="font-bold text-[13px] leading-[100%] tracking-0 text-black">
+    <section className="flex w-full flex-col gap-[20px] rounded-[10px] bg-white px-[7px] pt-[10px] pb-[26px] shadow-[0px_2px_50px_0px_#A9DEF93D] lg:w-[846px] lg:px-[27px] lg:py-[37px]">
+      <h2 className="tracking-0 text-[13px] leading-[100%] font-bold text-black">
         Posts
       </h2>
       {posts.map((post) => (
@@ -61,39 +72,44 @@ export function Posts() {
           {/* Post Content */}
           <div className="border-y border-black py-[16px]">
             {/* Post Header */}
-            <section className="flex flex-row items-center gap-[9px] lg:gap-[18px] pb-[15px] lg:pb-[29px] w-full">
-              <div className="w-[43px] h-[56px] overflow-hidden lg:w-[78px] lg:h-[83.02px] flex-shrink-0">
+            <section className="flex w-full flex-row items-center gap-[9px] pb-[15px] lg:gap-[18px] lg:pb-[29px]">
+              <div className="h-[56px] w-[43px] flex-shrink-0 overflow-hidden lg:h-[83.02px] lg:w-[78px]">
                 <img
                   src={post.profileImage}
                   alt="User profile"
-                  className="w-full h-full object-cover"
+                  className="h-full w-full object-cover"
                 />
               </div>
               <div className="flex flex-col gap-[10px] lg:gap-[16px]">
-                <p className="text-[12px] lg:text-[16px] tracking-0 leading-[100%] font-semibold text-Black flex flex-row gap-[8px] lg:flex-row">
+                <p className="tracking-0 text-Black flex flex-row gap-[8px] text-[12px] leading-[100%] font-semibold lg:flex-row lg:text-[16px]">
                   {post.name}
-                  <span className="opacity-50 lg:text-[15.6px] font-normal">
+                  <span className="font-normal opacity-50 lg:text-[15.6px]">
                     {post.username}
                   </span>
                 </p>
-                <p className="tracking-0 leading-[100%] text-[12px] lg:text-[15.6px] font-normal text-Black">
+                <p className="tracking-0 text-Black text-[12px] leading-[100%] font-normal lg:text-[15.6px]">
                   {post.bio}
                 </p>
               </div>
             </section>
 
             {/* Post Content */}
-            <section className="flex flex-col gap-[10px] mt-[5px]">
-              <h3 className="text-[12px] text-LightRed tracking-0 leading-[100%]">
+            <section className="mt-[5px] flex flex-col gap-[10px]">
+              <h3 className="text-LightRed tracking-0 text-[12px] leading-[100%]">
                 {post.title}
               </h3>
-              <p className="text-[14px] text-black mb-[16px]">{post.text}</p>
+              <p className="mb-[16px] text-[14px] text-black">{post.text}</p>
             </section>
 
             {/* Icons */}
             <section className="flex gap-[20px]">
-              <button>
-                <img src={heartIcon} alt="heart icon" />
+              <button
+                onClick={() => handleLoveClick(post.id)}
+                className={` cursor-pointer transition-transform duration-200 ${
+                  likedPosts[post.id] ? "text-LightRed scale-120" : "scale-115"
+                }`}
+              >
+                <HeartIcon />
               </button>
               <button>
                 <img src={commentIcon} alt="comment icon" />
@@ -109,18 +125,18 @@ export function Posts() {
             <img
               src={profilePhoto}
               alt="Commenter avatar"
-              className="w-[40px] h-[40px] drop-shadow-[3px_3px_1px_rgba(0,0,0,0.8)]"
+              className="h-[40px] w-[40px] drop-shadow-[3px_3px_1px_rgba(0,0,0,0.8)]"
             />
             <div className="relative flex-1">
               <input
                 value={comments[post.id] || ""}
                 onChange={(e) => handleCommentChange(post.id, e)}
-                className="w-full h-[37px] border border-black focus:outline-none text-[12px] font-bold leading-[100%] tracking-0 text-black placeholder:text-black rounded-lg py-[12px] pl-[11px] pr-[40px] bg-BlackGrey"
+                className="tracking-0 bg-BlackGrey h-[37px] w-full rounded-lg border border-black py-[12px] pr-[40px] pl-[11px] text-[12px] leading-[100%] font-bold text-black placeholder:text-black focus:outline-none"
                 placeholder="Write your comment..."
               />
               <button
                 onClick={() => handleCommentSubmit(post.id)}
-                className="absolute top-1/2 -translate-y-1/2 right-4"
+                className="absolute top-1/2 right-4 -translate-y-1/2"
               >
                 <img src={sendIcon} alt="send icon" />
               </button>
@@ -131,5 +147,3 @@ export function Posts() {
     </section>
   );
 }
-
-
