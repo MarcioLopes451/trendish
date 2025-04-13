@@ -10,9 +10,13 @@ function Main({ isMenuOpen }: MainProps) {
     <main className="bg-IceBlue pt-5">
       <CreatePost isMenuOpen={isMenuOpen} />
 <<<<<<< HEAD
+<<<<<<< HEAD
       <ShowFeeds />
 =======
 >>>>>>> 7b32922 (fix: fixed textarea Z-index issue when Menu is in open state)
+=======
+      <ShowFeeds />
+>>>>>>> f0c6aa7 (feat: created ShowFeedsItem component to display dynamic feed items)
     </main>
   );
 }
