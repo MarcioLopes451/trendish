@@ -78,11 +78,7 @@ function ShowFeeds() {
           name="Paul Rudd"
           userId="antman_wasp"
           bioInfo="Smallest creature in this beautiful universe | Flying in colo..."
-<<<<<<< HEAD
           postContent={post.postContent}
-=======
-          postContent={post.postHeader}
->>>>>>> ec43d90 (add: displaying posts via db)
           postHeader={post.postHeader}
           commentUserprofileImage={commentUserProfileImage}
           postImage={natureImg}
