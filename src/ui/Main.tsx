@@ -9,7 +9,10 @@ function Main({ isMenuOpen }: MainProps) {
   return (
     <main className="bg-IceBlue pt-5">
       <CreatePost isMenuOpen={isMenuOpen} />
+<<<<<<< HEAD
       <ShowFeeds />
+=======
+>>>>>>> 7b32922 (fix: fixed textarea Z-index issue when Menu is in open state)
     </main>
   );
 }
