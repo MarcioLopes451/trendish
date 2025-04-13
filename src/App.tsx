@@ -6,6 +6,7 @@ import Homepage from "./pages/Homepage/Homepage";
 import NoPageFound from "./pages/Error/NoPageFound";
 import { UserProfile } from "./pages/UserProfile/UserProfile";
 import Settings from "./pages/Settings/Settings";
+import { Gallery } from "./pages/Gallery/Gallery";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/profile" element={<UserProfile />} />
+      <Route path="/gallery" element={<Gallery/>}/>
       <Route path="*" element={<NoPageFound />} />
       <Route path="/settings" element={<Settings />} />
     </Routes>
