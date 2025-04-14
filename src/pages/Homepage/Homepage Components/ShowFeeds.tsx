@@ -1,16 +1,20 @@
 import ShowFeedsItem from "./ShowFeedsItem";
 import profilePhoto from "../../../assets/UserProfile.png";
-import commentUserProfileImage from "../../../assets/profilePhoto.png";
 import natureImg from "../../../assets/natureImage.png";
 import { db } from "../../../../config/firebase";
-import { getDocs, collection, doc, updateDoc, increment, } from "firebase/firestore";
+import { getDocs, collection, doc, updateDoc, increment, getDoc, } from "firebase/firestore";
 import { useState, useEffect } from "react";
+
 
 type Post = {
   postHeader:string,
   postContent:string,
   like:number,
   id:string,
+  userId: string;
+  name?: string,
+  username?:string;
+  profileImage?:string
 }
 
 function ShowFeeds() {
@@ -21,13 +25,25 @@ function ShowFeeds() {
   const showPosts = async () => {
     try {
       const postData = await getDocs(postRef);
-      const filteredData = postData.docs.map((post) => ( {
-        id:post.id,
-        postHeader: post.data().postHeader,
-        postContent:post.data().postContent,
-        like:post.data().like || 0
-      }));
-      setPosts(filteredData)
+      const postsWithAuthors = await Promise.all(
+        postData.docs.map(async (post) => {
+          
+          const userDoc = await getDoc(doc(db, "users", post.data().userId));
+          const userData = userDoc.data();
+          
+          return {
+            id: post.id,
+            postHeader: post.data().postHeader,
+            postContent: post.data().postContent,
+            like: post.data().like || 0,
+            userId: post.data().userId,
+            name: userData?.firstName + " " + userData?.lastName,
+            username: userData?.username,
+            profileImage: userData?.profileImage
+          };
+        })
+      );
+      setPosts(postsWithAuthors)
 
     } catch(error) {
       console.error(error)
@@ -52,35 +68,17 @@ function ShowFeeds() {
   }
   return (
     <section className="mt-6 space-y-6 pb-6">
-      {/* <ShowFeedsItem
-        profileImage={profilePhoto}
-        name="Tony Stark"
-        userId="tony_stark_3000"
-        bioInfo="Cognitive Person | Enthusiastic scientist | Worked on 300"
-        postHeader="*Immediate HIRING*"
-        postContent="Looking for an amazing scientist who nows how to build a suit that can fly high in the sky without any problem."
-        commentUserprofileImage={commentUserProfileImage}
-      />
-
-      <ShowFeedsItem
-        profileImage={profilePhoto}
-        name="Paul Rudd"
-        userId="antman_wasp"
-        bioInfo="Smallest creature in this beautiful universe | Flying in colo..."
-        postContent="Exploring the amazin nature with my loved daughter and wife. These kind of visuals can soothen your mind, no matter what is your problem and it makes you to foret all your pains."
-        commentUserprofileImage={commentUserProfileImage}
-        postImage={natureImg}
-      /> */}
+      
       <div>
         {posts.map((post) => (
           <ShowFeedsItem
-          profileImage={profilePhoto}
-          name="Paul Rudd"
-          userId="antman_wasp"
+          profileImage={post.profileImage || profilePhoto}
+          name={post.name || ""}
+          userId={post.username || ""}
           bioInfo="Smallest creature in this beautiful universe | Flying in colo..."
           postContent={post.postContent}
           postHeader={post.postHeader}
-          commentUserprofileImage={commentUserProfileImage}
+          commentUserprofileImage={post.profileImage || profilePhoto}
           postImage={natureImg}
           key={post.id}
           likes={post.like}

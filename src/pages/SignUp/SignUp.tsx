@@ -1,10 +1,12 @@
 import { useState } from "react";
 import Logo from "../../assets/TrendishLogo.png";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, db } from "../../../config/firebase";
+import { auth, db, storage } from "../../../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, updateDoc } from "firebase/firestore";
 import GroupImg from '../../assets/Group 1.png';
+import ProfilePic from '../../assets/User-Icon-Grey.webp';
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState<string>("");
@@ -58,6 +60,7 @@ export default function SignUp() {
         email,
         password
       );
+
       await setDoc(doc(db, "users", userAuth.user.uid), {
         firstName: firstName.trim(),
         lastName: lastName.trim(),
@@ -66,6 +69,18 @@ export default function SignUp() {
         createdAt: new Date().toISOString(),
         uid: userAuth.user.uid,
       });
+    
+      const response = await fetch(ProfilePic);
+      const blob = await response.blob();
+
+      const imageRef = ref(storage, `userImg/${userAuth.user.uid}/profile.jpg`)
+      await uploadBytes(imageRef, blob);
+
+      const downloadURL = await getDownloadURL(imageRef);
+
+      await updateDoc(doc(db, "users", userAuth.user.uid), {
+        profileImage: downloadURL
+      })
       setMessage("Sign up Successful! redirecting you to login page....");
       setError(false);
       setTimeout(() => {
