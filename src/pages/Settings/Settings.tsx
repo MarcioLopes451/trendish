@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
-import ProfilePic from '../../assets/profilePhoto.png';
+import ProfilePic from '../../assets/User-Icon-Grey.webp';
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, updatePassword, verifyBeforeUpdateEmail } from "firebase/auth";
-import { auth, db } from '../../../config/firebase';
+import { auth, db, storage } from '../../../config/firebase';
+import { uploadBytes, ref, getDownloadURL } from 'firebase/storage';
+
 
 type UserData  = {
     firstName: string;
@@ -11,6 +13,7 @@ type UserData  = {
     dob:string;
     email:string;
     password:string;
+    profileImage?: null;
 }
 
 export default function Settings() {
@@ -22,6 +25,9 @@ export default function Settings() {
     const [password, setPassword] = useState<string>("");
     const [user, setUser] = useState<UserData | null>(null);
     const [edit,setEdit] = useState<boolean>(false);
+    const [image,setImage] = useState<File | null>(null);
+    const [message,setMessage] = useState<string>("")
+
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -37,6 +43,7 @@ export default function Settings() {
 
       const updateUserData = async () => {
         if (!auth.currentUser?.uid) return;
+
       
         try {
           const updates: Partial<UserData> = {};
@@ -58,10 +65,11 @@ export default function Settings() {
             if (updates.username) setUsername("");
             if (updates.dob) SetDOB("");
           }
-      
+          setMessage("Changes saved!")
           setEdit(false);
         } catch (error) {
           console.error("Update failed:", error);
+          setMessage("Error saving changes.")
         }
       };
 
@@ -89,20 +97,49 @@ export default function Settings() {
         }
       }
 
+      const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (files && files.length > 0) {
+          setImage(files[0]);
+        }
+      }
+      const updateUserImg = async () => {
+        if(!image || !auth.currentUser?.uid) return;
+       
+        try {
+            const imgRef = ref(storage, `userImg/${image.name}`)
+            await uploadBytes(imgRef,image)
+
+            const downloadURL = await getDownloadURL(imgRef);
+            const userDocRef = doc(db,"users", auth.currentUser?.uid);
+            await updateDoc(userDocRef, {
+                profileImage: downloadURL
+            })
+            
+            setMessage("Image uploaded!")
+            setImage(null)
+        } catch(error) {
+            console.error(error)
+        }
+      }
     return (
         <section className='w-full bg-IceBlue min-h-screen font-sora'>
             <div className="flex justify-center items-center pt-10">
                 <div className="bg-white mx-[13px] w-full rounded-[10px] pb-10">
                     <div className="flex justify-center items-start flex-col gap-5 px-[10px] pt-[10px]">
                         <div className='flex justify-between items-center w-full md:px-[30px]'>
-                            <div className='flex justify-between items-center gap-2 '>
-                                <img src={ProfilePic} className='w-[40px] rounded-2xl md:w-[70px]' />
+                            <div className='flex justify-between items-start gap-2 flex-col-reverse'>
+                                <div className='flex justify-center items-start flex-col'>
+                                <input type="file" onChange={handleImgChange} accept='image/*' className='text-[12px] md:text-[14px] lg:text-[16px]' disabled={edit === false}/>
+                                <button onClick={updateUserImg} className='text-[12px] md:text-[14px] lg:text-[16px]'>upload image</button>
+                                </div>
+                                <img src={user?.profileImage || ProfilePic} className='w-[40px] rounded-2xl md:w-[70px]' />
                                 <div className='flex items-start flex-col gap-2 font-light'>
                                     <p className='text-[13px] font-semibold md:text-[18px]'>{user?.firstName}</p>
                                     <p className='text-[12px] opacity-50 md:text-[15px]'>{email}</p>
                                 </div>
                             </div>
-                            <button className='text-[13px] bg-SkyBlue w-[77px] h-[28px] rounded-[8px] font-semibold md:w-[120px] md:h-[40px]' onClick={() => setEdit(true)}>Edit</button>
+                            <button className='text-[13px] bg-SkyBlue w-[77px] h-[28px] rounded-[8px] font-semibold md:w-[120px] md:h-[40px]' onClick={() => setEdit(true)}>{edit === false ? "click to edit" : "editing"}</button>
                         </div>
                         <div className="mt-5 font-regular text-[12px] flex justify-around items-center flex-wrap gap-4 md:text-[14px] lg:text-[16px] xl:justify-between xl:px-[28px] ">
                             <div>
@@ -182,7 +219,7 @@ export default function Settings() {
                     <div className="flex justify-center items-center mt-10 lg:justify-start lg:px-[50px]">
                         <button className="bg-[#D9E6FF] w-[121px] h-[30px] rounded-[8px] text-[14px] font-light text-Azure md:w-[246px] md:h-[46px] lg:text-[16px] lg:w-[240px]" 
                         onClick={() =>  {updateUserData(); updateUserEmail(password); updateUserPassword()}}>
-                            Save Changes
+                            {message ? message : "save changes"}
                         </button>
                         </div>
                 </div>
