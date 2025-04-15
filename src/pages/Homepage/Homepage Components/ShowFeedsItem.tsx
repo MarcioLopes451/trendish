@@ -1,22 +1,8 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 import shareIcon from "../../../assets/2849794_plane_paper airplane_send_airplane_multimedia_icon.png";
 
 
 
-=======
-import LikeShareComment from "../../../ui/LikeShareComment";
-import shareIcon from "../../../assets/2849794_plane_paper airplane_send_airplane_multimedia_icon.png";
-
->>>>>>> f0c6aa7 (feat: created ShowFeedsItem component to display dynamic feed items)
-=======
-
-import shareIcon from "../../../assets/2849794_plane_paper airplane_send_airplane_multimedia_icon.png";
-
-
-
->>>>>>> ec43d90 (add: displaying posts via db)
 type ShowFeedsItemProps = {
   profileImage: string;
   name: string;
@@ -26,18 +12,9 @@ type ShowFeedsItemProps = {
   postContent: string;
   commentUserprofileImage: string;
   postImage?: string;
-<<<<<<< HEAD
-<<<<<<< HEAD
   likes?:number,
   handleLike: (postId:string) => void,
   postId:string
-=======
->>>>>>> f0c6aa7 (feat: created ShowFeedsItem component to display dynamic feed items)
-=======
-  likes?:number,
-  handleLike: (postId:string) => void,
-  postId:string
->>>>>>> ec43d90 (add: displaying posts via db)
 };
 
 function ShowFeedsItem({
@@ -49,21 +26,11 @@ function ShowFeedsItem({
   postContent,
   commentUserprofileImage,
   postImage,
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> ec43d90 (add: displaying posts via db)
   likes,
   handleLike,
   postId
 }: ShowFeedsItemProps) {
 
-<<<<<<< HEAD
-=======
-}: ShowFeedsItemProps) {
->>>>>>> f0c6aa7 (feat: created ShowFeedsItem component to display dynamic feed items)
-=======
->>>>>>> ec43d90 (add: displaying posts via db)
   return (
     <article className="bg-White mx-1.5 px-2 pt-2 pb-6">
       <div className="flex gap-4">
@@ -85,10 +52,6 @@ function ShowFeedsItem({
         {postImage && (
           <img src={postImage} alt="" className="mt-3.5 rounded-xl" />
         )}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> ec43d90 (add: displaying posts via db)
         {/*<LikeShareComment /> */}
         {/* temp code just testing the like count */}
         <div className="mt-3 flex gap-5 border-b-[1px] pb-3">
@@ -96,12 +59,6 @@ function ShowFeedsItem({
           <button aria-label="Comment on this post">comment</button>
           <button aria-label="Share this post">share</button>
         </div>
-<<<<<<< HEAD
-=======
-        <LikeShareComment />
->>>>>>> f0c6aa7 (feat: created ShowFeedsItem component to display dynamic feed items)
-=======
->>>>>>> ec43d90 (add: displaying posts via db)
 
         <div className="relative">
           <label htmlFor="userComment" className="sr-only">
