@@ -1,14 +1,15 @@
 import { UserInfoPanel } from "./UserProfileComponents/UserInfoPanel";
 import { UserDetails } from "./UserProfileComponents/UserDetails";
-import { Posts } from "./UserProfileComponents/Posts";
+// import { Posts } from "./UserProfileComponents/Posts";
+import { Posts } from "@/components/posts/Posts";
 
 export function UserProfile() {
   return (
     <main >
-    
-      <div className="bg-IceBlue font-sora  flex flex-col items-center py-[13px] px-[8px] lg:p-[40px] gap-[23px] lg:gap-[40px]">
+        <div className="bg-IceBlue font-sora  flex flex-col items-center py-[13px] px-[8px] lg:p-[40px] gap-[23px] lg:gap-[40px]">
         <UserInfoPanel />
         <UserDetails />
+        {/* <Posts/> */}
         <Posts/>
       </div>
     </main>

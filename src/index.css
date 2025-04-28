@@ -24,8 +24,36 @@
   --color-Seasalt: #F9F9F9;
   --color-Azure: #4182F9;
   --color-B900: #0C1024;
-  --color-IceBlue: #F1FAFF ;
-  --color-SkyBlue:#54C5FF ;
-   --color-B900:#0C1024;
+  --color-IceBlue: #F1FAFF;
+  --color-SkyBlue: #54C5FF;
+  --color-B900: #0C1024;
+}
+
+/* Toast Animations */
+@keyframes slide-in-from-bottom {
+  from {
+    transform: translateY(100%);
   }
 
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-out-to-left {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(100% + 16px));
+  }
+}
+
+.toast-enter {
+  animation: slide-in-from-bottom 0.3s ease-out forwards;
+}
+
+.toast-exit {
+  animation: slide-out-to-left 0.3s ease-out forwards;
+}

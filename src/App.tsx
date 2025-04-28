@@ -7,19 +7,23 @@ import NoPageFound from "./pages/Error/NoPageFound";
 import { UserProfile } from "./pages/UserProfile/UserProfile";
 import Settings from "./pages/Settings/Settings";
 import { Gallery } from "./pages/Gallery/Gallery";
+import { Toaster } from "@/ui/toast";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/homepage" replace />} />
-      <Route path="/homepage" element={<Homepage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/profile" element={<UserProfile />} />
-      <Route path="/gallery" element={<Gallery/>}/>
-      <Route path="*" element={<NoPageFound />} />
-      <Route path="/settings" element={<Settings />} />
-    </Routes>
+    <div>
+      <Toaster />
+      <Routes>
+        <Route path="/" element={<Navigate to="/homepage" replace />} />
+        <Route path="/homepage" element={<Homepage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="*" element={<NoPageFound />} />
+        <Route path="/settings" element={<Settings />} />
+      </Routes>
+    </div>
   );
 }
 
